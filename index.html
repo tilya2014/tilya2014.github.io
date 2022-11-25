@@ -1,49 +1,145 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-    <title>Ionic Seed App</title>
+<html lang="en">
 
-    <!-- ionic css -->
-    <link href="lib/css/ionic.css" rel="stylesheet">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <title>Гусь</title>
+</head>
 
-    <!-- your app's css -->
-    <link href="css/app.css" rel="stylesheet">
-    <link href="css/ionic.contrib.frostedGlass.css" rel="stylesheet">
+<body>
+    <img src="guse.svg" alt="">
+    <div class="button">
 
-    <!-- angularjs scripts -->
-    <script src="lib/js/ionic.js"></script>
-    <script src="lib/js/angular/angular.js"></script>
-    <script src="lib/js/angular/angular-animate.js"></script>
-    <script src="lib/js/angular/angular-sanitize.js"></script>
-    <script src="lib/js/angular-ui/angular-ui-router.js"></script>
-    <script src="lib/js/ionic-angular.js"></script>
 
-    <!-- cordova script -->
-    <script src="cordova.js"></script>
+        <button>Обрати позицію</button>
+        <div class="RECTANGLE_5">
+            <div class="RECTANGLE_2">
+                <div class="RECTANGLE_4">
+                    <div class="RECTANGLE_3">
+                        <div class="RECTANGLE_1">
+                            <div class="ELLIPSE"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<style>
+    .ELLIPSE {
+        position: absolute;
+        width: 140%;
+        height: 100%;
+        background: rgba(255, 55, 128, 0.2);
+        mix-blend-mode: hard-light;
+        filter: blur(11.3438px);
+        margin-left: -20%;
+    }
 
-    <!-- your app's script -->
-    <script src="js/app.js"></script>
-    <script src="js/ionic.contrib.frostedGlass.js"></script>
-  </head>
+    .RECTANGLE_1 {
+        box-sizing: border-box;
 
-  <!-- 
-    'starter' is the name of this angular module (js/app.js)
-  -->
-  <body ng-app="starter" animation="slide-left-right-ios7">
+        position: relative;
+        width: 100%;
+        height: 100%;
 
-    <ion-pane ng-controller="PageCtrl">
-      <ion-header-bar frosted-bar title="'Blurred...man!'" type="bar-frosted"></ion-header-bar>
-      <ion-content has-header="true" has-footer="true" padding="true" start-y="120">
-        <ol class="messages">
-					<li ng-repeat="message in messages" ion-bind-html-unsafe="message.content">
-					</li>
-				</ol>
-      </ion-content>
-      <footer class="bar bar-footer bar-frosted">
-        <button class="button button-clear button-positive" ng-click="add()">Add Message</button>
-      </footer>
-    </pane>
-  </body>
+        mix-blend-mode: hard-light;
+        border: 4.91563px solid #f32e7c;
+        filter: blur(11.3438px);
+        border-radius: 14px;
+    }
+
+    .RECTANGLE_2 {
+        box-sizing: content-box;
+
+        position: absolute;
+        width: 99%;
+        height: 90%;
+
+        mix-blend-mode: hard-light;
+        border: 6.42812px solid #ff26c2;
+        filter: blur(3.78125px);
+        border-radius: 14px;
+        left: -4px;
+        top: -3px;
+    }
+
+    .RECTANGLE_3 {
+        box-sizing: border-box;
+
+        position: relative;
+        width: 100%;
+        height: 100%;
+
+        mix-blend-mode: hard-light;
+        border: 5px solid rgba(251, 55, 255, 0.2);
+        box-shadow: inset -0.491562px 0.983125px 0.491562px rgba(255, 255, 255, 0.5);
+        filter: drop-shadow(0px 7.5625px 9.83125px #990099) drop-shadow(0px 4.91563px 3.78125px rgba(77, 0, 66, 0.7));
+        border-radius: 14px;
+    }
+
+    .RECTANGLE_4 {
+        box-sizing: border-box;
+        position: relative;
+        width: 100%;
+        height: 100%;
+        border: 3.025px solid #fb37ff;
+        filter: blur(0.378125px);
+        border-radius: 14px;
+    }
+
+    .RECTANGLE_5 {
+        box-sizing: border-box;
+
+        position: relative;
+        width: 100%;
+        height: 100%;
+
+        border: 1.5125px solid #ffffff;
+        filter: blur(0.252083px);
+        border-radius: 14px;
+    }
+
+    .button {
+        box-sizing: border-box;
+
+        position: relative;
+        width: 335px;
+        height: 69px;
+        padding: ;
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        vertical-align: middle;
+        border: 1px solid white;
+        border-radius: 16px;
+        box-sizing: content-box;
+        margin: auto;
+    }
+
+    .button button {
+        position: absolute;
+        z-index: 999;
+        align-self: center;
+        font-family: roboto;
+        color: white;
+        background: #E71AB0;
+        border-radius: 14px;
+        width: 92%;
+        height: 65%;
+        font-size: 18px;
+        border: none;
+    }
+
+    body {
+        background: #10000B;
+    }
+</style>
+
 </html>
+

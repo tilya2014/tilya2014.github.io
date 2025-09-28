@@ -1,0 +1,123 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>P2P Chat - Manual Signaling</title>
+    <style>
+        body {
+            font-family: Arial;
+            padding: 20px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 100px;
+        }
+
+        #chat {
+            border: 1px solid #ccc;
+            padding: 10px;
+            height: 200px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>P2P Chat (serverless)</h2>
+
+    <button id="startOffer">Start (Offer)</button>
+    <button id="startAnswer">Prepare to Answer</button>
+    <br><br>
+
+    <label>Local SDP (send to peer):</label>
+    <textarea id="localOut"
+              readonly></textarea>
+
+    <label>Remote SDP (paste from peer):</label>
+    <textarea id="remoteIn"></textarea>
+    <button id="applyRemote">Apply Remote</button>
+
+    <h3>Messages</h3>
+    <div id="chat"></div>
+    <input id="msg"><button id="send">Send</button>
+
+    <script>
+        let pc, dc;
+
+        function log(msg) {
+            const c = document.getElementById("chat");
+            c.innerHTML += msg + "<br>";
+            c.scrollTop = c.scrollHeight;
+        }
+
+        async function setup(role) {
+            pc = new RTCPeerConnection({
+                iceServers: [{ urls: "stun:stun.l.google.com:19302" }]
+            });
+
+            pc.onicecandidate = () => { }; // We wait for ICE complete
+
+            if (role === "offerer") {
+                dc = pc.createDataChannel("chat");
+                dc.onmessage = e => log("Peer: " + e.data);
+            } else {
+                pc.ondatachannel = e => {
+                    dc = e.channel;
+                    dc.onmessage = ev => log("Peer: " + ev.data);
+                };
+            }
+        }
+
+        async function createOffer() {
+            await setup("offerer");
+            const offer = await pc.createOffer();
+            await pc.setLocalDescription(offer);
+            await waitForICE();
+            document.getElementById("localOut").value = JSON.stringify(pc.localDescription);
+        }
+
+        async function createAnswer(remote) {
+            await setup("answerer");
+            await pc.setRemoteDescription(remote);
+            const answer = await pc.createAnswer();
+            await pc.setLocalDescription(answer);
+            await waitForICE();
+            document.getElementById("localOut").value = JSON.stringify(pc.localDescription);
+        }
+
+        function waitForICE() {
+            return new Promise(resolve => {
+                if (pc.iceGatheringState === "complete") resolve();
+                pc.onicegatheringstatechange = () => {
+                    if (pc.iceGatheringState === "complete") resolve();
+                };
+            });
+        }
+
+        document.getElementById("startOffer").onclick = createOffer;
+
+        document.getElementById("startAnswer").onclick = () => alert("Paste offer and click Apply Remote");
+
+        document.getElementById("applyRemote").onclick = async () => {
+            const remote = JSON.parse(document.getElementById("remoteIn").value);
+            if (remote.type === "offer") {
+                await createAnswer(remote);
+            } else {
+                await pc.setRemoteDescription(remote);
+            }
+        };
+
+        document.getElementById("send").onclick = () => {
+            if (dc && dc.readyState === "open") {
+                const v = document.getElementById("msg").value;
+                dc.send(v);
+                log("Me: " + v);
+                document.getElementById("msg").value = "";
+            }
+        };
+    </script>
+</body>
+
+</html>
